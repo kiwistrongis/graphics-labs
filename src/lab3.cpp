@@ -1,4 +1,5 @@
 //standard libary includes
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 //core opengl includes
@@ -26,7 +27,7 @@ int display_height = 900;
 //camera stuff
 const double half_pi = M_PI / 2;
 const double tau = 2 * M_PI;
-double radius = 5.0;
+double radius = 8.0;
 double theta = 0.0;
 double phi = 0.0;
 //shaders
@@ -39,7 +40,8 @@ glm::vec3 camera_center;
 glm::vec3 camera_up;
 glm::mat4 projection;
 //other
-bool wire_enabled = true;
+bool wire_enabled = false;
+glm::vec4 teapot_colour;
 
 //init stuff
 void vars_init();
@@ -65,8 +67,9 @@ int main( int argc, char** argv){
 	glutMainLoop();}
 
 void vars_init(){
+	teapot_colour = glm::vec4( 0.2, 0.4, 0.6, 1.0);
 	camera_eye = glm::vec3( 0.0f, 0.0f, 0.0f);
-	camera_center = glm::vec3( 0.0f, 0.0f, 0.0f);
+	camera_center = glm::vec3( 0.0f, 0.0f, 1.2f);
 	camera_up = glm::vec3( 0.0f, 0.0f, 1.0f);
 	camera_recalc();}
 
@@ -117,7 +120,7 @@ void resize( int width_new, int height_new){
 	float ratio = 1.0 * window_width / window_height;
 	glViewport( 0, 0,
 		(GLsizei) window_width, (GLsizei) window_height);
-	projection = glm::perspective( 40.0f, ratio, 1.0f, 10.0f);}
+	projection = glm::perspective( 45.0f, ratio, 1.0f, 100.0f);}
 
 void display(){
 	//clear buffer
@@ -125,22 +128,19 @@ void display(){
 	glUseProgram( shader_program);
 
 	//set up view
+	//glLoadIdentity();
 	camera_recalc();
 	glm::mat4 view = glm::lookAt(
 		camera_eye, camera_center, camera_up);
 
-	/*/create model view perspective matrix
-	glm::mat4 perspective_mv = projection * view;
-	int matrix_loc = glGetUniformLocation(
-		shader_program, "perspective_mv");
-	glUniformMatrix4fv(
-		matrix_loc, 1, 0, glm::value_ptr( perspective_mv));//*/
-
-	//bind 
+	//bind
 	int view_loc = glGetUniformLocation( shader_program, "model_view");
 	glUniformMatrix4fv( view_loc, 1, 0, glm::value_ptr( view));
 	int proj_loc = glGetUniformLocation( shader_program, "projection");
 	glUniformMatrix4fv( proj_loc, 1, 0, glm::value_ptr( projection));
+
+	int base_loc = glGetUniformLocation( shader_program, "base");
+	glUniform4fv( base_loc, 1, glm::value_ptr( teapot_colour));
 
 	//actually draw the teapot
 	if( wire_enabled)
@@ -181,6 +181,31 @@ void keydown( unsigned char key, int x, int y){
 			break;
 		case 'y':
 			wire_enabled = ! wire_enabled;
+			glutPostRedisplay();
+			break;
+		case 'u':
+			teapot_colour[0] = std::min( teapot_colour[0] + 0.1, 1.0);
+			glutPostRedisplay();
+			break;
+		case 'j':
+			teapot_colour[0] = std::max( teapot_colour[0] - 0.1, 0.0);
+			glutPostRedisplay();
+			break;
+		case 'i':
+			teapot_colour[1] = std::min( teapot_colour[1] + 0.1, 1.0);
+			glutPostRedisplay();
+			break;
+		case 'k':
+			teapot_colour[1] = std::max( teapot_colour[1] - 0.1, 0.0);
+			glutPostRedisplay();
+			break;
+		case 'o':
+			teapot_colour[2] = std::min( teapot_colour[2] + 0.1, 1.0);
+			glutPostRedisplay();
+			break;
+		case 'l':
+			teapot_colour[2] = std::max( teapot_colour[2] - 0.1, 0.0);
+			glutPostRedisplay();
 			break;
 		case 'q':
 		case 27:

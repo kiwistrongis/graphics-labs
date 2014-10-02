@@ -1,4 +1,4 @@
-#version 330 core
+#version 330 compatibility
 
 uniform mat4 model_view;
 uniform mat4 projection;

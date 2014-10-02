@@ -1,11 +1,11 @@
-#version 330 core
+#version 330 compatibility
 
-//uniform vec4 base;
+uniform vec4 base;
 
 in vec3 normal;
 
 void main() {
-	vec4 base = vec4( 1.0, 0.0, 0.0, 1.0);
+	//vec4 base = vec4( 1.0, 0.0, 0.0, 1.0);
 	vec3 light = vec3( 1.0, 0.0, 0.0);
 	vec3 N = normalize( normal);
 	float diffuse = dot( N, light);

@@ -117,7 +117,7 @@ void display(){
 	glPushMatrix();
 	glRotatef( 90, 1, 0, 0);
 	glRotatef( 90, 0, 1, 0);
-	if( 1)
+	if( 0)
 		glutWireTeapot( 1);
 	else
 		glutSolidTeapot( 1);
