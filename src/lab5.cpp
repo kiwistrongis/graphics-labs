@@ -43,6 +43,7 @@ glm::mat4 projection;
 glm::vec4 sphere_colour;
 GLuint sphere_vao;
 glm::vec3 atten = glm::vec3( 1.0, 0.001, 0.0001);
+glm::vec3 light = glm::vec3( 0.0, 0.0, 2.0);
 const int slices = 12;
 const int spokes = 12;
 const int vert_count = 2 * ( spokes + 1) + slices * spokes;
@@ -301,9 +302,9 @@ void display(){
 	int material_loc = glGetUniformLocation( shader_program, "material");
 	glUniform4f( material_loc, 0.2, 0.4, 0.4, 200.0);
 	int light_loc = glGetUniformLocation( shader_program, "light");
-	glUniform3f(light_loc, 0.0, 0.0, 8.0);
+	glUniform3fv( light_loc, 1, glm::value_ptr( light));
 	int atten_loc = glGetUniformLocation( shader_program, "attenuation");
-	glUniformMatrix3fv( atten_loc, 1, 0, glm::value_ptr( atten));
+	glUniform3fv( atten_loc, 1, glm::value_ptr( atten));
 
 	//draw sphere
 	glBindVertexArray( sphere_vao);
@@ -339,6 +340,14 @@ void keydown( unsigned char key, int x, int y){
 			theta = 0.0;
 			phi = 0.0;
 			camera_recalc();
+			glutPostRedisplay();
+			break;
+		case 'y':
+			light[2] += 0.5;
+			glutPostRedisplay();
+			break;
+		case 'h':
+			light[2] -= 0.5;
 			glutPostRedisplay();
 			break;
 		case 'u':
