@@ -34,7 +34,7 @@ $(package_file): $(binaries)
 		bin gen lists.mk makefile obj src
 
 #tests
-test: test-lab3
+test: test-lab5
 
 test-lab1: bin/lab1
 	primusrun $<
