@@ -43,8 +43,8 @@ glm::mat4 projection;
 glm::vec4 sphere_colour;
 GLuint sphere_vao;
 glm::vec3 atten = glm::vec3( 1.0, 0.001, 0.0001);
-const int slices = 30;
-const int spokes = 30;
+const int slices = 12;
+const int spokes = 12;
 const int vert_count = 2 * ( spokes + 1) + slices * spokes;
 const int inner = 6 * slices * spokes + 6 * slices;
 const int index_count = 2 * ( spokes + 2) + inner;
@@ -96,8 +96,8 @@ void sphere_init(){
 	float x, y, z;
 	int start;
 
-	dtheta = 2.0 * M_PI/spokes;
-	dphi = 2 * M_PI_2/slices;
+	dtheta = 2.0 * M_PI / spokes;
+	dphi = 2 * M_PI_2 / slices;
 
 	GLfloat vertices[ vert_count][4];
 	GLfloat normals[ vert_count][3];
@@ -140,9 +140,9 @@ void sphere_init(){
 		theta = 0.0;
 		start = k;
 		for( int i = 0; i < spokes; i++){
-			x = radius*cos(phi)*cos(theta);
-			y = radius*cos(phi)*sin(theta);
-			z = radius*sin(phi);
+			x = radius * cos( phi) * cos( theta);
+			y = radius * cos( phi) * sin( theta);
+			z = radius * sin( phi);
 			vertices[k][0] = x;
 			vertices[k][1] = y;
 			vertices[k][2] = z;
@@ -234,7 +234,7 @@ void shaders_init(){
 	int fragshdr = build_shader( GL_FRAGMENT_SHADER, fragshdr_file);
 	printf("building shader program\n");
 	shader_program = build_program( vertshdr, fragshdr);
-	if( false){
+	if( true){
 		printf("dumping shader program debug info\n");
 		dump_program( shader_program);}}
 
@@ -301,7 +301,7 @@ void display(){
 	int material_loc = glGetUniformLocation( shader_program, "material");
 	glUniform4f( material_loc, 0.2, 0.4, 0.4, 200.0);
 	int light_loc = glGetUniformLocation( shader_program, "light");
-	glUniform3f(light_loc, 1.0, 1.0, 1.0);
+	glUniform3f(light_loc, 0.0, 0.0, 8.0);
 	int atten_loc = glGetUniformLocation( shader_program, "attenuation");
 	glUniformMatrix3fv( atten_loc, 1, 0, glm::value_ptr( atten));
 
