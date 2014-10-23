@@ -25,8 +25,8 @@ double theta = 0.0;
 double phi = 0.0;
 //shaders
 int shader_program = 0;
-char vertshdr_file[] = "data/lab2_vertex.glsl";
-char fragshdr_file[] = "data/lab2_fragment.glsl";
+char vertshdr_file[] = "shdr/lab2_vertex.glsl";
+char fragshdr_file[] = "shdr/lab2_fragment.glsl";
 
 //init stuff
 void vars_init();

@@ -14,7 +14,7 @@ cflags = $(includes) $(options)
 #linking flags
 ldflags = $(libs) $(warnings)
 #other vars
-package_file = pkg/kalev_lab2.zip
+package_file = pkg/kalev_lab6.zip
 
 #includes
 include deps.mk
@@ -31,7 +31,9 @@ build: $(binaries)
 package: $(package_file)
 $(package_file): $(binaries)
 	zip -FSr $(package_file) \
-		bin gen lists.mk makefile obj src
+		bin data gen obj shdr src \
+		deps.mk lists.mk makefile \
+		pkg/.gitignore
 
 #tests
 test: test-lab5
