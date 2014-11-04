@@ -4,6 +4,8 @@ binaries = \
 	bin/lab3 \
 	bin/lab4 \
 	bin/lab5 \
+	bin/lab6 \
+	bin/lab7 \
 
 objects = \
 	obj/lab1.o \
@@ -11,4 +13,7 @@ objects = \
 	obj/lab3.o \
 	obj/lab4.o \
 	obj/lab5.o \
+	obj/lab6.o \
+	obj/lab7.o \
 	obj/shaders.o \
+	obj/texture.o \

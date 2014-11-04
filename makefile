@@ -14,7 +14,7 @@ cflags = $(includes) $(options)
 #linking flags
 ldflags = $(libs) $(warnings)
 #other vars
-package_file = pkg/kalev_lab6.zip
+package_file = pkg/kalev_lab7.zip
 
 #includes
 include deps.mk
@@ -24,7 +24,7 @@ include lists.mk
 $(objects): obj/%.o : src/%.cpp
 	gcc $(cflags) -c $< -o $@
 $(binaries): bin/% : obj/%.o
-	gcc $(ldflags) $< obj/shaders.o -o $@
+	gcc $(ldflags) $< obj/shaders.o obj/texture.o -o $@
 
 #commands
 build: $(binaries)
@@ -36,7 +36,7 @@ $(package_file): $(binaries)
 		pkg/.gitignore
 
 #tests
-test: test-lab5
+test: test-lab6
 
 test-lab1: bin/lab1
 	primusrun $<

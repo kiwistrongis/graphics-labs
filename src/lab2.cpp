@@ -13,7 +13,7 @@
 
 //window vars
 int window;
-char window_name[] = "lab1";
+char window_name[] = "lab2";
 int window_width = 800;
 int window_height = 600;
 //camera stuff
@@ -25,8 +25,8 @@ double theta = 0.0;
 double phi = 0.0;
 //shaders
 int shader_program = 0;
-char vertshdr_file[] = "shdr/lab2_vertex.glsl";
-char fragshdr_file[] = "shdr/lab2_fragment.glsl";
+char vertshdr_file[] = "shdr/lab2.vert.glsl";
+char fragshdr_file[] = "shdr/lab2.frag.glsl";
 
 //init stuff
 void vars_init();

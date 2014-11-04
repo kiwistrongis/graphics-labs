@@ -19,7 +19,7 @@
 
 //window vars
 int window;
-char window_name[] = "lab1";
+char window_name[] = "lab3";
 int window_width = 800;
 int window_height = 600;
 int display_width = 1600;
@@ -32,8 +32,8 @@ double theta = 0.0;
 double phi = 0.0;
 //shaders
 int shader_program = 0;
-char vertshdr_file[] = "shdr/lab3_vertex.glsl";
-char fragshdr_file[] = "shdr/lab3_fragment.glsl";
+char vertshdr_file[] = "shdr/lab3.vert.glsl";
+char fragshdr_file[] = "shdr/lab3.frag.glsl";
 //matices and stuff
 glm::vec3 camera_eye;
 glm::vec3 camera_center;
