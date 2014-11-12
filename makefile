@@ -5,16 +5,20 @@ clean:
 	rm -rf bin/* obj/* gen/* pkg/*
 
 #vars
+#includes = -I/usr/local/include/drawstuff
 includes = 
-libs = -lm -lstdc++ -lGL -lGLU -lGLEW -lglut -lfreeimage
-options = -g -Wall -O0  -funsigned-char
+libs = -lode -ldrawstuff -lm -lstdc++ -lX11 -lGL -lGLU -lGLEW -lglut -lfreeimage
+#lib_includes = -L./lib/ode/drawstuff/src/.libs
+options = -g -Wall -O0  -funsigned-char -std=gnu++11
 warnings =
 #compilation flags
-cflags = $(includes) $(options)
+cflags = $(includes) $(options) 
 #linking flags
+#ldflags = $(lib_includes) $(libs) $(warnings)
 ldflags = $(libs) $(warnings)
 #other vars
 package_file = pkg/kalev_lab7.zip
+lib_file = bin/lib.a
 
 #includes
 include deps.mk
@@ -23,8 +27,12 @@ include lists.mk
 #compilation definitions
 $(objects): obj/%.o : src/%.cpp
 	gcc $(cflags) -c $< -o $@
-$(binaries): bin/% : obj/%.o
-	gcc $(ldflags) $< obj/shaders.o obj/texture.o -o $@
+$(binaries): bin/% : obj/%.o $(lib_file)
+	gcc $(ldflags) $< $(lib_file) -o $@
+
+$(lib_file): $(lib_objects)
+	ar rc $@ $(lib_objects)
+	ranlib $@
 
 #commands
 build: $(binaries)
@@ -36,7 +44,8 @@ $(package_file): $(binaries)
 		pkg/.gitignore
 
 #tests
-test: test-lab6
+test: $(lib_objects)
+	echo $<
 
 test-lab1: bin/lab1
 	primusrun $<

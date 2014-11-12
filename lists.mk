@@ -6,6 +6,7 @@ binaries = \
 	bin/lab5 \
 	bin/lab6 \
 	bin/lab7 \
+#	bin/lab8 \
 
 objects = \
 	obj/lab1.o \
@@ -15,5 +16,12 @@ objects = \
 	obj/lab5.o \
 	obj/lab6.o \
 	obj/lab7.o \
+	obj/lab8.o \
+	obj/perlin.o \
+	obj/shaders.o \
+	obj/texture.o \
+
+lib_objects = \
+	obj/perlin.o \
 	obj/shaders.o \
 	obj/texture.o \
