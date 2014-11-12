@@ -11,13 +11,13 @@ struct Texture {
 
 struct Texture* loadTexture( char* filename);
 
-struct Cube {
+struct CubeMap {
 	int width;
 	int height;
 	int depth;
 	unsigned char* data[6];
 };
 
-struct Cube* loadCube( char* basename);
+struct CubeMap* loadCubeMap( char* basename);
 
 #endif

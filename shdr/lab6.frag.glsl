@@ -1,4 +1,5 @@
-#version 330 core
+#version 400
+//#version 330 core
 
 uniform vec3 attenuation;
 uniform vec4 base;
@@ -9,6 +10,8 @@ uniform sampler2D tex;
 in vec3 normal;
 in vec4 position;
 in vec2 tex_coord;
+in vec4 world_pos;
+in vec3 world_norm;
 
 void main() {
 	vec4 white = vec4( 1.0, 1.0, 1.0, 1.0);
@@ -31,10 +34,21 @@ void main() {
 		attenuation[1] * dist +
 		attenuation[2] * dist * dist;
 
+	vec3 tc = reflect(
+		- vec3( world_pos),
+		normalize( world_norm));
+
+	/*/
 	gl_FragColor = min( vec4(1.0),
 		material[0] * base +
 		material[1] * diffuse * base * texture( tex, tex_coord)+
-		material[2] * white * specular);
+		material[2] * white * specular);//*/
+	/*/
+	gl_FragColor = min( vec4(1.0),
+		material[0] * base +
+		material[1] * diffuse * base * texture( tex, tc) +
+		material[2] * white * specular);//*/
 	gl_FragColor /= atten;
+	gl_FragColor = texture( tex, tc);
 	gl_FragColor.a = base.a;
 }

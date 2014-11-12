@@ -38,14 +38,14 @@ struct Texture* loadTexture( char* filename){
 
 	return result;}
 
-struct Cube* loadCube( char* basename) {
+struct CubeMap* loadCubeMap( char* basename) {
 	char filename[256];
 	char* extensions[] = {
 		posx_file, negx_file,
 		posz_file, negz_file,
 		posy_file, negy_file};
 
-	struct Cube* result = new Cube();
+	struct CubeMap* result = new CubeMap();
 	strcpy( filename, basename);
 	strcat( filename, "/");
 	strcat( filename, extensions[0]);
