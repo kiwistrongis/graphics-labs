@@ -39,7 +39,7 @@ build: $(binaries)
 package: $(package_file)
 $(package_file): $(binaries)
 	zip -FSr $(package_file) \
-		bin data gen obj shdr src \
+		bin data gen lib obj shdr src \
 		deps.mk lists.mk makefile \
 		pkg/.gitignore
 
