@@ -20,7 +20,7 @@
 
 //window vars
 int window;
-char window_name[] = "lab6";
+char window_name[] = "lab7";
 int window_width = 800;
 int window_height = 600;
 int display_width = 1600;
@@ -37,6 +37,7 @@ int shader_program = 0;
 char vertshdr_file[] = "shdr/lab7.vert.glsl";
 char fragshdr_file[] = "shdr/lab7.frag.glsl";
 char texture_file[] = "data/checkerboard.jpg";
+char cubemap_file[] = "data/cubemap";
 //matices and stuff
 glm::vec3 camera_eye;
 glm::vec3 camera_center;
@@ -52,6 +53,7 @@ const float radius = 2.0f;
 //other
 GLuint sphere_vao;
 struct Texture* texture;
+struct CubeMap* cubemap;
 glm::vec4 sphere_colour;
 glm::vec3 atten = glm::vec3( 1.0, 0.001, 0.0001);
 glm::vec3 light = glm::vec3( 0.0, 0.0, 2.0);
@@ -240,7 +242,7 @@ void sphere_init(){
 		sizeof( indexes), indexes, GL_STATIC_DRAW);
 
 	glUseProgram( shader_program);
-	vertex = glGetAttribLocation( shader_program,"vertex");
+	vertex = glGetAttribLocation( shader_program, "vertex");
 	glVertexAttribPointer( vertex, 4, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray( vertex);
 
@@ -254,17 +256,33 @@ void sphere_init(){
 		0, (void*) ( sizeof( vertices) + sizeof( normals)));
 	glEnableVertexAttribArray(texture_in);
 
-	texture = loadTexture( texture_file);
-	glGenTextures( 1, &texture_buffer);
-	glActiveTexture( GL_TEXTURE0);
-	glBindTexture( GL_TEXTURE_2D, texture_buffer);
-	glTexStorage2D( GL_TEXTURE_2D, 1, GL_RGBA8,
-		texture->width, texture->height);
-	glTexSubImage2D( GL_TEXTURE_2D, 0, 0, 0,
-		texture->width, texture->height, GL_RGB,
-		GL_UNSIGNED_BYTE, texture->data);
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);}
+	if( false){
+		cubemap = loadCubeMap( cubemap_file);
+		glGenTextures( 1, &texture_buffer);
+		glActiveTexture( GL_TEXTURE0);
+		glBindTexture( GL_TEXTURE_CUBE_MAP, texture_buffer);
+		for( int i = 0; i < 6; i++)
+			glTexImage2D(
+				GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA,
+				cubemap->width, cubemap->height,
+				0, GL_RGB, GL_UNSIGNED_BYTE, cubemap->data[i]);
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);}
+	else {
+		texture = loadTexture( texture_file);
+		glGenTextures( 1, &texture_buffer);
+		glActiveTexture( GL_TEXTURE0);
+		glBindTexture( GL_TEXTURE_2D, texture_buffer);
+		glTexStorage2D( GL_TEXTURE_2D, 1, GL_RGBA8,
+			texture->width, texture->height);
+		glTexSubImage2D( GL_TEXTURE_2D, 0, 0, 0,
+			texture->width, texture->height, GL_RGB,
+			GL_UNSIGNED_BYTE, texture->data);
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);}}
 
 void vars_destroy(){}
 
