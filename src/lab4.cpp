@@ -70,7 +70,6 @@ int main( int argc, char** argv){
 	glutMainLoop();}
 
 void vars_init(){
-	//cube_init();
 	cube_colour = glm::vec4( 0.2, 0.4, 0.6, 1.0);
 	camera_eye = glm::vec3( 0.0f, 0.0f, 0.0f);
 	camera_center = glm::vec3( 0.0f, 0.0f, 0.0f);
