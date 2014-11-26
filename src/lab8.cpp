@@ -36,7 +36,7 @@ static void nearCallback(void *data, dGeomID o1, dGeomID o2){
 			contact[i].surface.mu
 			= dInfinity;
 			contact[i].surface.bounce
-			= 0.9; // (0.0~1.0) restitution parameter
+			= 0.7; // (0.0~1.0) restitution parameter
 			contact[i].surface.bounce_vel = 0.1; // minimum incoming velocity for bounce
 			dJointID c = dJointCreateContact(world,contactgroup,&contact[i]);
 			dJointAttach (c,dGeomGetBody(contact[i].geom.g1),dGeomGetBody(contact[i].geom.g2));
@@ -63,7 +63,7 @@ void prepDrawStuff() {
 	fn.command = NULL;
 	fn.stop
 	= NULL;
-	fn.path_to_textures = "C:/CSCI 4110/ode-0.13.1/drawstuff/textures";
+	fn.path_to_textures = "/mnt/data/p/libs/ode-0.13/drawstuff/textures";
 }
 int main (int argc, char *argv[]){
 	dReal x0 = 0.0, y0 = 0.0, z0 = 2.0;

@@ -38,7 +38,7 @@ void main() {
 		- vec3( world_pos),
 		normalize( world_norm));
 
-	/*/
+	//
 	gl_FragColor = min( vec4(1.0),
 		material[0] * base +
 		material[1] * diffuse * base * texture( tex, tex_coord)+
@@ -49,6 +49,6 @@ void main() {
 		material[1] * diffuse * base * texture( tex, tc) +
 		material[2] * white * specular);//*/
 	gl_FragColor /= atten;
-	gl_FragColor = texture( tex, tc);
+	//gl_FragColor = texture( tex, tc);
 	gl_FragColor.a = base.a;
 }
