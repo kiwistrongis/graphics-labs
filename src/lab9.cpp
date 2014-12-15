@@ -60,8 +60,8 @@ void control(){
 		double z = THETA[j] - tmpAngle;
 		dJointSetHingeParam(joint[j], dParamVel, k1*z); // angular velocity
 		dJointSetHingeParam(joint[j], dParamFMax, fMax); // max torque
-		dJointAddHingeTorque( joint[j], 80 * sin( angle += 0.2));
 	}
+	dJointAddHingeTorque( joint[ NUM -1], 100 * sin( angle += 0.2));
 }
 
 void start(){

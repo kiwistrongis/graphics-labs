@@ -47,7 +47,7 @@ build: $(binaries)
 package: $(package_file)
 
 #tests
-test: test-lab8
+test: test-lab10
 
 test-lab1: bin/lab1
 	primusrun $<
@@ -67,3 +67,5 @@ test-lab8: bin/lab8
 	$<
 test-lab9: bin/lab9
 	$<
+test-lab10: bin/lab10
+	primusrun $<
