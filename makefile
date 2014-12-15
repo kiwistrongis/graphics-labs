@@ -18,7 +18,7 @@ cflags = $(includes) $(options)
 ldflags = $(lib_includes) $(libs) $(warnings)
 #ldflags = $(libs) $(warnings)
 #other vars
-package_file = pkg/kalev_lab7.zip
+package_file = pkg/kalev_labs.zip
 lib_file = bin/lib.a
 
 #includes
